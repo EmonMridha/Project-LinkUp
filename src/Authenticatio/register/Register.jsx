@@ -1,13 +1,30 @@
 import React from 'react';
-
+import useAuth from '../../hooks/useAuth';
+import { updateProfile } from 'firebase/auth';
+import { Link } from 'react-router';
 const Register = () => {
+    const { createUser } = useAuth()
 
     const handleSignUp = e => {
         e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const photo = form.photo.value;
+        const password = form.password.value;
 
-        const formData = Object.fromEntries(new FormData(e.target));
-
-        console.log(formData);
+        createUser(email, password)
+            .then(result => {
+                console.log(result);
+                const user = result.user;
+                updateProfile(user,{
+                    displayName: name,
+                    photoURL: photo
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
@@ -29,6 +46,7 @@ const Register = () => {
                             <label className="label">Password</label>
                             <input name='password' type="password" className="input" placeholder="Password" />
 
+                            <p className='text-sm'>Already have an account? <Link to='/login' className='text-blue-800 font-semibold'>Login</Link></p>
                             <button className="btn btn-neutral mt-4">Register</button>
                         </form>
                     </div>
