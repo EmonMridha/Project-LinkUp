@@ -3,6 +3,7 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home/Home";
 import Login from "../Authenticatio/login/Login";
 import Register from "../Authenticatio/register/Register";
+import AddPost from "../pages/AddPost/AddPost";
 
 export const router = createBrowserRouter([
     {
@@ -11,6 +12,10 @@ export const router = createBrowserRouter([
         children: [
             {index:true,
                 Component:Home
+            },
+            {
+                path:'/addPost',
+                Component:AddPost
             }
         ]
     },
