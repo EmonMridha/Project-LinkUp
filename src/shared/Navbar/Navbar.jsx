@@ -1,7 +1,27 @@
 import { FaCalendarAlt, FaCalendarTimes, FaHome, FaRegNewspaper, FaVideo } from 'react-icons/fa';
 import { Link } from 'react-router';
+import useAuth from '../../hooks/useAuth';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
+
+    const { user, logOut } = useAuth()
+    const [open, setOpen] = useState(false)
+
+    const toggleMenu = () => {
+        setOpen(!open)
+    }
+
+    const handleLogout = () => {
+        logOut()
+            .then(res => {
+                Swal.fire('Logged Out succesfully')
+            })
+            .catch(error => {
+                Swal.fire('Could not logOut')
+            })
+    }
 
     return (
         <div className="navbar px-4 flex justify-between gap-4 bg-gray-800  shadow-sm">
@@ -20,15 +40,27 @@ const Navbar = () => {
                     <Link to='/myPosts' className='text-2xl hover:text-blue-500'><FaRegNewspaper /></Link>
                 </div>
             </div>
-            <div className="flex items-center">
+            {
+                user ? (<div className="flex items-center">
+                    <div onClick={toggleMenu} className="w-10 rounded-full">
+                        <img
+                            className='rounded-full'
+                            alt="Tailwind CSS Navbar component"
+                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    </div>
 
-                <div className="w-10 rounded-full">
-                    <img
-                        className='rounded-full'
-                        alt="Tailwind CSS Navbar component"
-                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                </div>
-            </div>
+                    {
+                        open && (
+
+                            <button onClick={handleLogout} className="btn absolute right-0 mt-3 w-40 bg-red-900 rounded-xl shadow-md p-2 z-50">Logout</button>
+
+                        )
+                    }
+                </div>) : (<div>
+                    <Link className='btn mr-2' to='/login'>Login</Link>
+                    <Link className='btn ' to='/register'>Register</Link>
+                </div>)
+            }
         </div>
 
     );

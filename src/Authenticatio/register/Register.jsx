@@ -1,9 +1,11 @@
 import React from 'react';
 import useAuth from '../../hooks/useAuth';
 import { updateProfile } from 'firebase/auth';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 const Register = () => {
     const { createUser } = useAuth()
+    const navigate = useNavigate()
 
     const handleSignUp = e => {
         e.preventDefault();
@@ -17,13 +19,26 @@ const Register = () => {
             .then(result => {
                 console.log(result);
                 const user = result.user;
-                updateProfile(user,{
+                updateProfile(user, {
                     displayName: name,
                     photoURL: photo
                 })
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Registered Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate('/')
             })
             .catch(error => {
-                console.log(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong!",
+                    footer: '<a href="#">Why do I have this issue?</a>'
+                });
             })
     }
     return (
