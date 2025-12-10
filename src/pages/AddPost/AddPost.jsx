@@ -29,7 +29,7 @@ const AddPost = () => {
         <form onSubmit={handleFormSubmit} className="max-w-md mx-auto p-6 bg-gray-50 border rounded-xl shadow">
 
             <h2 className="text-2xl text-black font-semibold mb-4">Add Photo</h2>
-
+            
             <div className="mb-4">
                 <label className="block text-gray-900 font-medium mb-1">Photo URL</label>
                 <input

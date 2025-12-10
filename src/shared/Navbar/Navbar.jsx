@@ -24,7 +24,7 @@ const Navbar = () => {
     }
 
     return (
-        <div className="navbar px-4 flex justify-between gap-4 bg-gray-800  shadow-sm">
+        <div className="navbar fixed px-4 flex justify-between  gap-4 bg-gray-800  shadow-sm">
             <div>
                 <div className='flex gap-2'>
                     <Link to='/'><img className='w-10 rounded-full' src="https://i.ibb.co.com/WWz7GvJS/8-1sasa11.jpg" alt="" /></Link>
