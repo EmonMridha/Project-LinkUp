@@ -8,23 +8,25 @@ import AddPost from "../pages/AddPost/AddPost";
 export const router = createBrowserRouter([
     {
         path: "/",
-        Component:RootLayout,
+        Component: RootLayout,
         children: [
-            {index:true,
-                Component:Home
+            {
+                index: true,
+                loader: () => fetch('http://localhost:5000/posts').then(res => res.json()),
+                Component: Home
             },
             {
-                path:'/addPost',
-                Component:AddPost
+                path: '/addPost',
+                Component: AddPost
             }
         ]
     },
     {
-        path:'/login',
-        Component:Login
+        path: '/login',
+        Component: Login
     },
     {
-        path:'/register',
-        Component:Register
+        path: '/register',
+        Component: Register
     }
 ]);
