@@ -8,19 +8,15 @@ import useAuth from '../../hooks/useAuth';
 const Home = () => {
     const { user } = useAuth();
     const data = useLoaderData();
-    const [posts, setPosts] = useState(data)
+    const [posts, setPosts] = useState(data);
+
+
     const handleLike = async (id, email) => {
         try {
-            const res = await axios.patch(`http://localhost:5000/posts/like/${id}`,{email})
+            const res = await axios.patch(`http://localhost:5000/posts/like/${id}`, { email })
 
-            if (res.data.modifiedCount) {
-                // Update frontend UI instantly
-                const updated = posts.map(post => post._id === id ? { ...post, likes: post.likes + 1 } : post) // It creates a new object for the liked post where likes is increased by 1
-                setPosts(updated)
-            }
-            else {
-                Swal.fire('You already liked this post')
-            }
+            const updated = posts.map(post => post._id === id ? { ...post, likes: res.data.likes } : post); // Spreading all properties of post and overwrites the likes key
+            setPosts(updated);
         }
         catch (error) {
             Swal.fire('Could not update like in UI')
@@ -47,7 +43,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className=' flex justify-around my-2'>
-                            <button onClick={() => handleLike(singleData._id, user.email)} className='btn items-center'><FaThumbsUp></FaThumbsUp>Like</button>
+                            <button onClick={() => handleLike(singleData._id, user?.email)} className={`btn ${singleData.likedBy?.includes(user?.email) ? 'text-gray-700' : 'bg-blue-500'}`}><FaThumbsUp></FaThumbsUp>{singleData.likedBy?.includes(user?.email) ? 'Liked' : 'Like'}</button>
                             <button className='btn items-center'><FaComment></FaComment>Comment</button>
                             <button className='btn items-center'><FaShare></FaShare>Share</button>
                         </div>
