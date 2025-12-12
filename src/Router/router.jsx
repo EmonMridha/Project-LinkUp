@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                loader: () => fetch('http://localhost:5000/posts').then(res => res.json()),
+                loader: () => fetch('https://link-up-server-q7ztk1nyp-md-emon-mridhas-projects.vercel.app/posts').then(res => res.json()),
                 Component: Home
             },
             {

@@ -14,7 +14,7 @@ const AddPost = () => {
         const data = Object.fromEntries(formData.entries()); // Converting all the form data into an object
 
         try {
-            const res = await axios.post('http://localhost:5000/posts', data);
+            const res = await axios.post('https://link-up-server-q7ztk1nyp-md-emon-mridhas-projects.vercel.app/posts', data);
 
             if (res.data.insertedId) {
                 Swal.fire('Posted Successfully!')

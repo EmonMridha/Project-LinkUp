@@ -13,7 +13,7 @@ const Home = () => {
 
     const handleLike = async (id, email) => {
         try {
-            const res = await axios.patch(`http://localhost:5000/posts/like/${id}`, { email })
+            const res = await axios.patch(`https://link-up-server-q7ztk1nyp-md-emon-mridhas-projects.vercel.app/posts/like/${id}`, { email })
 
             const updated = posts.map(post => post._id === id ? { ...post, likes: res.data.likes } : post); // Spreading all properties of post and overwrites the likes key
             setPosts(updated);
